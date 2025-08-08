@@ -26,17 +26,11 @@ jobs:
     - name: Run build
       run: npm run build
 
-    - name: Deploy to server
+    - name: Deploy to server via webhook
       if: github.ref == 'refs/heads/main'
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: 45.55.181.24
-        username: root
-        key: ${{ secrets.DEPLOY_KEY }}
-        script: |
-          cd /var/www/bound-ai-dashboard
-          git pull origin main
-          npm ci
-          npm run build
-          pm2 reload bound-ai || pm2 start npm --name "bound-ai" -- start
-          echo "✅ Deploy completed successfully"
+      run: |
+        echo "🚀 Triggering deployment..."
+        curl -X POST http://206.81.1.88:3001/deploy \
+          -H "Content-Type: application/json" \
+          -d '{"ref": "main", "repository": "bound-ai-dashboard"}' \
+          || echo "⚠️ Webhook failed, but build succeeded"
