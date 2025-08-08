@@ -39,7 +39,7 @@ export default function DirectFormStep({ onNext }: DirectFormStepProps) {
   const isFormValid = () => {
     return (
       formData.userName.trim() &&
-      formData.email.trim() &&
+      (formData.email || '').trim() &&
       formData.companyName.trim() &&
       formData.businessDescription.trim()
     )
