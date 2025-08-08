@@ -17,6 +17,20 @@ export default function OnboardingPage() {
   const [showGDPR, setShowGDPR] = useState(false)
   const [currentAgentId, setCurrentAgentId] = useState<string | null>(null)
 
+  // Generate UUID compatible with all browsers
+  const generateUUID = (): string => {
+    if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+      return crypto.randomUUID()
+    }
+    
+    // Fallback for browsers that don't support crypto.randomUUID
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      const r = Math.random() * 16 | 0
+      const v = c == 'x' ? r : (r & 0x3 | 0x8)
+      return v.toString(16)
+    })
+  }
+
   const methods = useForm<OnboardingFormData>({
     resolver: zodResolver(onboardingSchema),
     mode: 'onChange',
@@ -77,7 +91,7 @@ export default function OnboardingPage() {
     }
 
     // Generate unique agent ID
-    const agentId = crypto.randomUUID()
+    const agentId = generateUUID()
     console.log('🆔 Generated agent ID:', agentId)
     
     // Store agentId in state
