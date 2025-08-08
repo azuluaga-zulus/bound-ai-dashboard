@@ -81,10 +81,10 @@ export default function BusinessDataStep({ userName, onNext, onBack }: BusinessD
   }
 
   const addChallenge = (challenge: string) => {
-    if (challenge && !formData.mainChallenges.includes(challenge)) {
+    if (challenge && !(formData.mainChallenges || []).includes(challenge)) {
       setFormData({
         ...formData,
-        mainChallenges: [...formData.mainChallenges, challenge]
+        mainChallenges: [...(formData.mainChallenges || []), challenge]
       })
     }
   }
@@ -92,15 +92,15 @@ export default function BusinessDataStep({ userName, onNext, onBack }: BusinessD
   const removeChallenge = (challenge: string) => {
     setFormData({
       ...formData,
-      mainChallenges: formData.mainChallenges.filter(c => c !== challenge)
+      mainChallenges: (formData.mainChallenges || []).filter(c => c !== challenge)
     })
   }
 
   const addGoal = (goal: string) => {
-    if (goal && !formData.currentGoals.includes(goal)) {
+    if (goal && !(formData.currentGoals || []).includes(goal)) {
       setFormData({
         ...formData,
-        currentGoals: [...formData.currentGoals, goal]
+        currentGoals: [...(formData.currentGoals || []), goal]
       })
     }
   }
@@ -108,7 +108,7 @@ export default function BusinessDataStep({ userName, onNext, onBack }: BusinessD
   const removeGoal = (goal: string) => {
     setFormData({
       ...formData,
-      currentGoals: formData.currentGoals.filter(g => g !== goal)
+      currentGoals: (formData.currentGoals || []).filter(g => g !== goal)
     })
   }
 
@@ -238,7 +238,7 @@ export default function BusinessDataStep({ userName, onNext, onBack }: BusinessD
               </label>
               <div className="space-y-2">
                 <div className="flex flex-wrap gap-2 mb-3">
-                  {formData.mainChallenges.map(challenge => (
+                  {(formData.mainChallenges || []).map(challenge => (
                     <span key={challenge} className="inline-flex items-center px-3 py-1 bg-red-100 text-red-800 text-sm rounded-full">
                       {challenge}
                       <button
@@ -273,7 +273,7 @@ export default function BusinessDataStep({ userName, onNext, onBack }: BusinessD
               </label>
               <div className="space-y-2">
                 <div className="flex flex-wrap gap-2 mb-3">
-                  {formData.currentGoals.map(goal => (
+                  {(formData.currentGoals || []).map(goal => (
                     <span key={goal} className="inline-flex items-center px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full">
                       {goal}
                       <button
