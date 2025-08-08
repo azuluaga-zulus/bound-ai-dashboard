@@ -133,8 +133,8 @@ export default function OnboardingSuccessPage() {
         // Convert comma-separated strings to arrays for multi-selects
         const editorRecord = {
           ...agentRecord,
-          icp_industries_array: agentRecord.icp_industries ? agentRecord.icp_industries.split(',').map(i => i.trim()).filter(i => i) : [],
-          icp_geo_array: agentRecord.icp_geo ? agentRecord.icp_geo.split(',').map(g => g.trim()).filter(g => g) : [],
+          icp_industries_array: agentRecord.icp_industries ? agentRecord.icp_industries.split(',').map((i: string) => i.trim()).filter((i: string) => i) : [],
+          icp_geo_array: agentRecord.icp_geo ? agentRecord.icp_geo.split(',').map((g: string) => g.trim()).filter((g: string) => g) : [],
           icp_title_array: agentRecord.icp_title ? [agentRecord.icp_title] : [],
           icp_department_array: agentRecord.icp_department ? [agentRecord.icp_department] : []
         }
