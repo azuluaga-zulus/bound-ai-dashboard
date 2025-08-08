@@ -30,7 +30,7 @@ jobs:
       if: github.ref == 'refs/heads/main'
       uses: appleboy/ssh-action@v1.0.3
       with:
-        host: 206.81.1.88
+        host: 45.55.181.24
         username: root
         key: ${{ secrets.DEPLOY_KEY }}
         script: |
