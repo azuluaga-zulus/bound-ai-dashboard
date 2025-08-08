@@ -35,6 +35,7 @@ const objectives = [
 export default function BusinessDataStep({ userName, onNext, onBack }: BusinessDataStepProps) {
   const [formData, setFormData] = useState<BusinessData>({
     userName,
+    email: '',
     companyName: '',
     industry: '',
     businessDescription: '',

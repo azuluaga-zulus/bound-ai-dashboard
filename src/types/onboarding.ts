@@ -1,6 +1,6 @@
 export interface BusinessData {
   userName: string
-  email: string
+  email?: string
   companyName: string
   industry?: string
   website?: string
@@ -11,6 +11,7 @@ export interface BusinessData {
   currentGoals?: string[]
   targetAudience?: string
   companySize?: string
+  primaryObjective?: string
 }
 
 export interface OnboardingStep {
