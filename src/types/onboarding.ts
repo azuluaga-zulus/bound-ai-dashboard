@@ -2,10 +2,15 @@ export interface BusinessData {
   userName: string
   email: string
   companyName: string
+  industry?: string
   website?: string
   instagram?: string
   linkedin?: string
   businessDescription: string
+  mainChallenges?: string[]
+  currentGoals?: string[]
+  targetAudience?: string
+  companySize?: string
 }
 
 export interface OnboardingStep {
