@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { track } from '@/utils/onboarding'
@@ -77,7 +77,7 @@ function truncateStyle(style: string | undefined, maxLength = 120): string {
   return style.substring(0, maxLength).trim() + '...'
 }
 
-export default function OnboardingSuccessPage() {
+function OnboardingSuccessContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [agentData, setAgentData] = useState<AgentData | null>(null)
@@ -785,5 +785,20 @@ export default function OnboardingSuccessPage() {
         )}
       </AnimatePresence>
     </div>
+  )
+}
+
+export default function OnboardingSuccessPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#0F121B] text-[#F5F7FA] flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#6D4CFF] mx-auto mb-4"></div>
+          <p className="text-[#F5F7FA]/70">Loading...</p>
+        </div>
+      </div>
+    }>
+      <OnboardingSuccessContent />
+    </Suspense>
   )
 }
