@@ -1,0 +1,26 @@
+name: bound-ai-dashboard
+region: nyc
+services:
+- name: web
+  source_dir: /
+  github:
+    repo: azuluaga-zulus/bound-ai-dashboard
+    branch: main
+  run_command: npm start
+  build_command: npm run build
+  environment_slug: node-js
+  instance_count: 1
+  instance_size_slug: basic-xxs
+  envs:
+  - key: NEXT_PUBLIC_N8N_BASE_URL
+    value: https://agents.bound.work
+    scope: RUN_AND_BUILD_TIME
+  - key: NEXT_PUBLIC_SUPABASE_URL
+    value: https://bqkdmozyarxhcwavvuih.supabase.co
+    scope: RUN_AND_BUILD_TIME
+  - key: NEXT_PUBLIC_SUPABASE_ANON_KEY
+    value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJxa2Rtb3p5YXJ4aGN3YXZ2dWloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQxNzA0NTgsImV4cCI6MjA2OTc0NjQ1OH0.sjbZZN7wlHGhUDGAKgU1f3vRd-D-1HNOKLLLMPgQ1xk
+    scope: RUN_AND_BUILD_TIME
+  http_port: 3000
+  routes:
+  - path: /

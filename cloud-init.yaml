@@ -1,0 +1,68 @@
+#cloud-config
+package_update: true
+package_upgrade: true
+
+packages:
+  - nodejs
+  - npm
+  - nginx
+  - git
+  - curl
+
+write_files:
+  - path: /root/setup.sh
+    permissions: '0755'
+    content: |
+      #!/bin/bash
+      
+      # Install Node.js 20
+      curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+      apt-get install -y nodejs
+      
+      # Clone repository
+      cd /var/www
+      git clone https://github.com/azuluaga-zulus/bound-ai-dashboard.git
+      cd bound-ai-dashboard
+      
+      # Install dependencies
+      npm install
+      
+      # Create env file
+      cat > .env.local << 'EOL'
+      NEXT_PUBLIC_N8N_BASE_URL=https://agents.bound.work
+      NEXT_PUBLIC_SUPABASE_URL=https://bqkdmozyarxhcwavvuih.supabase.co
+      NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJxa2Rtb3p5YXJ4aGN3YXZ2dWloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQxNzA0NTgsImV4cCI6MjA2OTc0NjQ1OH0.sjbZZN7wlHGhUDGAKgU1f3vRd-D-1HNOKLLLMPgQ1xk
+      EOL
+      
+      # Build app
+      npm run build
+      
+      # Install PM2
+      npm install -g pm2
+      
+      # Start app
+      pm2 start npm --name "bound-ai-dashboard" -- start
+      pm2 save
+      pm2 startup systemd -u root --hp /root
+      
+      # Configure Nginx
+      cat > /etc/nginx/sites-available/default << 'NGINX'
+      server {
+          listen 80 default_server;
+          listen [::]:80 default_server;
+          
+          location / {
+              proxy_pass http://localhost:3000;
+              proxy_http_version 1.1;
+              proxy_set_header Upgrade \$http_upgrade;
+              proxy_set_header Connection 'upgrade';
+              proxy_set_header Host \$host;
+              proxy_cache_bypass \$http_upgrade;
+          }
+      }
+      NGINX
+      
+      systemctl restart nginx
+
+runcmd:
+  - /root/setup.sh

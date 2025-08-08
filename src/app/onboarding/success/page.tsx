@@ -639,7 +639,7 @@ export default function OnboardingSuccessPage() {
                           onChange={(e) => setEditorData({ ...editorData, comm_style: e.target.value })}
                           className="w-full px-3 py-2 bg-white/5 border border-white/20 rounded-lg focus:ring-2 focus:ring-[#6D4CFF] focus:border-[#6D4CFF] text-[#F5F7FA] text-sm appearance-none cursor-pointer"
                           style={{
-                            backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='rgb(245 247 250 / 0.5)'%3e%3cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3e%3c/path%3e%3c/svg%3e")`,,
+                            backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='rgb(245 247 250 / 0.5)'%3e%3cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3e%3c/path%3e%3c/svg%3e")`,
                             backgroundPosition: 'right 0.5rem center',
                             backgroundRepeat: 'no-repeat',
                             backgroundSize: '1rem'
