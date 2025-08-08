@@ -93,7 +93,7 @@ export default function OnboardingPage() {
 
     // Generate unique agent ID
     const agentId = generateUUID()
-    console.log('🆔 Generated agent ID:', agentId)
+    console.log('🆔 Generated agent ID (with UUID fix):', agentId)
     
     // Store agentId in state
     setCurrentAgentId(agentId)
